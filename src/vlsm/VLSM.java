@@ -6,7 +6,12 @@ import java.util.StringTokenizer;
 
 public class VLSM {
 
-    public static void main(String[] args) {
+
+    public VLSM(){
+
+    }
+
+    public void CalcVLSM() {
 
         System.out.println(calcularTipo("192.0.1.1"));
         System.out.println(verificarMascara("1000"));
@@ -32,7 +37,7 @@ public class VLSM {
         }
     }
 
-    public static void Calcular(String ipPrincipal, String maskPrincipal, ArrayList<Red> redes){
+    public void Calcular(String ipPrincipal, String maskPrincipal, ArrayList<Red> redes){
         ArrayList<Red> redesLibresViejas = new ArrayList();
         boolean primera = false;
         for (int i = 0; i < redes.size(); i++) {
@@ -77,7 +82,7 @@ public class VLSM {
         }
     }
     
-    public static ArrayList<Red> redesLibres(String ip, String mask, int host) {
+    public ArrayList<Red> redesLibres(String ip, String mask, int host) {
         int x = 32 - bitsLibres(mask);
         int y = 32 - cantBinarios(host);
         int delta = y - x;
@@ -118,7 +123,7 @@ public class VLSM {
         return misRedes;
     }
 
-    public static int binarioADecimal(String numeroBinario) {
+    public int binarioADecimal(String numeroBinario) {
         int longitud = numeroBinario.length();//Numero de digitos que tiene nuestro binario
         int resultado = 0;//Aqui almacenaremos nuestra respuesta final
         int potencia = longitud - 1;
@@ -131,7 +136,7 @@ public class VLSM {
         return resultado;
     }
 
-    public static ArrayList organizaYCalculaMask(ArrayList<Red> redes, String maskPrincipal) {
+    public ArrayList organizaYCalculaMask(ArrayList<Red> redes, String maskPrincipal) {
         Collections.sort(redes);
         for (Red a : redes) {
             a.setHost(a.getHost() + 2);
@@ -147,7 +152,7 @@ public class VLSM {
         return redes;
     }
 
-    public static String calcularTipo(String ip) {
+    public String calcularTipo(String ip) {
         StringTokenizer tk = new StringTokenizer(ip, ".");
 
         int num = 0;
@@ -172,7 +177,7 @@ public class VLSM {
         return "Invalida";
     }
 
-    public static String verificarMascara(String mask) {
+    public String verificarMascara(String mask) {
         StringTokenizer tk = new StringTokenizer(mask, ".");
         int num = 0;
         ArrayList dir = new ArrayList();
@@ -195,12 +200,12 @@ public class VLSM {
         return "Invalida";
     }
 
-    public static int cantBinarios(int host) {
+    public int cantBinarios(int host) {
         String bin = Integer.toBinaryString(host);
         return bin.length();
     }
 
-    public static String binario(int num, int cant) {
+    public String binario(int num, int cant) {
         String bin = Integer.toBinaryString(num);
         for (int i = bin.length(); i < cant; i++) {
             bin = "0" + bin;
@@ -208,7 +213,7 @@ public class VLSM {
         return bin;
     }
 
-    public static String convertidorDecimalBinario(String mask) {
+    public String convertidorDecimalBinario(String mask) {
         StringTokenizer tk = new StringTokenizer(mask, ".");
         int num = 0;
         String dir = "";
@@ -224,7 +229,7 @@ public class VLSM {
         return dir;
     }
 
-    public static int bitsLibres(String mask) {
+    public int bitsLibres(String mask) {
         int cont = 0;
         for (int i = 0; i < mask.length(); i++) {
             if (mask.charAt(i) == '0') {
@@ -234,7 +239,7 @@ public class VLSM {
         return cont;
     }
 
-    public static String numABinario(int mascara) {
+    public String numABinario(int mascara) {
         if (mascara >= 0 && mascara <= 32) {
             String num = "";
             int delta = 32 - mascara;

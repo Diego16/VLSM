@@ -30,17 +30,17 @@ public class Inter extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextFieldIPInicial = new javax.swing.JTextField();
+        TxtFldIPInicial = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextFieldMascara = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        TxtFldMascara = new javax.swing.JTextField();
+        BtnIpMask = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldNombreRed = new javax.swing.JTextField();
+        TxtFldNombreRed = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldHosts = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BtnAddNet = new javax.swing.JButton();
+        BtnRemNet = new javax.swing.JButton();
+        BtnCalcVLSM = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,33 +59,33 @@ public class Inter extends javax.swing.JFrame {
         jLabel7.setText("IP Inicial");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
-        jTextFieldIPInicial.addActionListener(new java.awt.event.ActionListener() {
+        TxtFldIPInicial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldIPInicialActionPerformed(evt);
+                TxtFldIPInicialActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldIPInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 200, -1));
+        jPanel1.add(TxtFldIPInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 200, -1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 255, 255));
         jLabel8.setText("Mascara Inicial");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, -1, -1));
-        jPanel1.add(jTextFieldMascara, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 200, -1));
+        jPanel1.add(TxtFldMascara, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 200, -1));
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setText("Establecer IP y Mask");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnIpMask.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BtnIpMask.setText("Establecer IP y Mask");
+        BtnIpMask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnIpMaskActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
+        jPanel1.add(BtnIpMask, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 255, 255));
         jLabel1.setText("Nombre de Red");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
-        jPanel1.add(jTextFieldNombreRed, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 100, -1));
+        jPanel1.add(TxtFldNombreRed, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 100, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 255, 255));
@@ -93,22 +93,22 @@ public class Inter extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
         jPanel1.add(jTextFieldHosts, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 100, -1));
 
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setText("Agregar Red");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, -1, -1));
+        BtnAddNet.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BtnAddNet.setText("Agregar Red");
+        jPanel1.add(BtnAddNet, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, -1, -1));
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton3.setText("Eliminar Red");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BtnRemNet.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BtnRemNet.setText("Eliminar Red");
+        BtnRemNet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BtnRemNetActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, -1, -1));
+        jPanel1.add(BtnRemNet, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, -1, -1));
 
-        jButton4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton4.setText("Aplicar VLSM");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, -1, -1));
+        BtnCalcVLSM.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BtnCalcVLSM.setText("Aplicar VLSM");
+        jPanel1.add(BtnCalcVLSM, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vlsm/dark_material_design_wallpaper__3_in_4k_by_tgs266-d9j9h5i-1024x576.jpg"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 490));
@@ -127,17 +127,18 @@ public class Inter extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldIPInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIPInicialActionPerformed
+    private void TxtFldIPInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFldIPInicialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldIPInicialActionPerformed
+    }//GEN-LAST:event_TxtFldIPInicialActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtnIpMaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIpMaskActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_BtnIpMaskActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BtnRemNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRemNetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_BtnRemNetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,10 +176,13 @@ public class Inter extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton BtnAddNet;
+    private javax.swing.JButton BtnCalcVLSM;
+    private javax.swing.JButton BtnIpMask;
+    private javax.swing.JButton BtnRemNet;
+    private javax.swing.JTextField TxtFldIPInicial;
+    private javax.swing.JTextField TxtFldMascara;
+    private javax.swing.JTextField TxtFldNombreRed;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -187,8 +191,5 @@ public class Inter extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldHosts;
-    private javax.swing.JTextField jTextFieldIPInicial;
-    private javax.swing.JTextField jTextFieldMascara;
-    private javax.swing.JTextField jTextFieldNombreRed;
     // End of variables declaration//GEN-END:variables
 }
