@@ -161,7 +161,6 @@ public class VLSM {
             num = Integer.parseInt((String) tk.nextElement());
             dir.add(num);
             if (num > 255 || num < 0) {
-                System.out.println("IP invalida");
                 return "Invalida";
             }
         }
