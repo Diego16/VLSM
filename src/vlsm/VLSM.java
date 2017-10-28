@@ -6,9 +6,9 @@ import java.util.StringTokenizer;
 
 public class VLSM {
 
-
+    ArrayList<Red> redes;
     public VLSM(){
-
+        this.redes = new ArrayList();
     }
 
     public void CalcVLSM() {
@@ -25,7 +25,6 @@ public class VLSM {
         Red r6 = new Red(12, "R6");
         Red r7 = new Red(0, "R7");
         Red r8 = new Red(0, "R8");
-        ArrayList<Red> redes = new ArrayList();
         redes.add(r1);
         redes.add(r2);
         redes.add(r3);
@@ -186,6 +185,17 @@ public class VLSM {
             if (num > 255 || num < 0) {             
                 return "Mascara Invalida";
             }
+            String comprobar= binario(num,8);
+            boolean finuno= false;
+            for (int i=0;i<comprobar.length();i++){
+                if (comprobar.charAt(i)=='0'){
+                    finuno=true;
+                }
+                if (finuno && comprobar.charAt(i)== '1'){
+                    return "Mascara Invalida";
+                }
+            }
+            
         }
         if ((int) dir.get(0) < 256 && (int) dir.get(1) == 0 && (int) dir.get(2) == 0 && (int) dir.get(3) == 0) {
             return "A";

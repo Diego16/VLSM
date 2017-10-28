@@ -32,7 +32,7 @@ public class Inter extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         TxtFldNombreRed = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldHosts = new javax.swing.JTextField();
+        TxtFldHosts = new javax.swing.JTextField();
         BtnAddNet = new javax.swing.JButton();
         BtnRemNet = new javax.swing.JButton();
         BtnCalcVLSM = new javax.swing.JButton();
@@ -80,10 +80,15 @@ public class Inter extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(204, 255, 255));
         jLabel2.setText("Numero de Hosts");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
-        jPanel1.add(jTextFieldHosts, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 100, -1));
+        jPanel1.add(TxtFldHosts, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 100, -1));
 
         BtnAddNet.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         BtnAddNet.setText("Agregar Red");
+        BtnAddNet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAddNetActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnAddNet, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, -1, -1));
 
         BtnRemNet.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -124,7 +129,11 @@ public class Inter extends javax.swing.JFrame {
         if (calcu.calcularTipo(TxtFldIPInicial.getText()).equals("Invalida")) {
             JOptionPane.showMessageDialog(this, "La IP ingresada no es valida");
         }
-        if (!calcu.calcularTipo(TxtFldIPInicial.getText()).equals(calcu.verificarMascara(TxtFldMascara.getText()))) {
+        System.out.println(calcu.calcularTipo(TxtFldIPInicial.getText()));
+        System.out.println(calcu.verificarMascara(TxtFldMascara.getText()));
+        String txtIP=calcu.calcularTipo(TxtFldIPInicial.getText());
+        String txtMas=calcu.verificarMascara(TxtFldMascara.getText());
+        if (!txtIP.equals(txtMas)) {
             JOptionPane.showMessageDialog(this, "La mascara ingresada no corresponde al tipo de IP ingresada");
         } else {
             TxtFldIPInicial.setEditable(false);
@@ -135,6 +144,11 @@ public class Inter extends javax.swing.JFrame {
     private void BtnRemNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRemNetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnRemNetActionPerformed
+
+    private void BtnAddNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddNetActionPerformed
+        // TODO add your handling code here:
+        calcu.redes.add(new Red(Integer.parseInt(TxtFldHosts.getText()),TxtFldNombreRed.getText()));
+    }//GEN-LAST:event_BtnAddNetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +190,7 @@ public class Inter extends javax.swing.JFrame {
     private javax.swing.JButton BtnCalcVLSM;
     private javax.swing.JButton BtnIpMask;
     private javax.swing.JButton BtnRemNet;
+    private javax.swing.JTextField TxtFldHosts;
     private javax.swing.JTextField TxtFldIPInicial;
     private javax.swing.JTextField TxtFldMascara;
     private javax.swing.JTextField TxtFldNombreRed;
@@ -186,6 +201,5 @@ public class Inter extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldHosts;
     // End of variables declaration//GEN-END:variables
 }
