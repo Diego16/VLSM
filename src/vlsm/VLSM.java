@@ -36,7 +36,8 @@ public class VLSM {
         }
     }
 
-    public void Calcular(String ipPrincipal, String maskPrincipal, ArrayList<Red> redes){
+    public ArrayList<Red> Calcular(String ipPrincipal, String maskPrincipal, ArrayList<Red> ra){
+        ArrayList<Red> redes=ra;
         ArrayList<Red> redesLibresViejas = new ArrayList();
         boolean primera = false;
         for (int i = 0; i < redes.size(); i++) {
@@ -79,6 +80,7 @@ public class VLSM {
                 }
             }
         }
+        return redes;
     }
     
     public ArrayList<Red> redesLibres(String ip, String mask, int host) {
@@ -197,14 +199,14 @@ public class VLSM {
             }
             
         }
-        if ((int) dir.get(0) < 256 && (int) dir.get(1) == 0 && (int) dir.get(2) == 0 && (int) dir.get(3) == 0) {
-            return "A";
+        if ((int) dir.get(0) == 255 && (int) dir.get(1) == 255 && (int) dir.get(2) > 254) {
+            return "C";
         }
-        if ((int) dir.get(0) < 256 && (int) dir.get(1) < 256 && (int) dir.get(2) < 256 && (int) dir.get(3) == 0) {
+        if ((int) dir.get(0) == 255 && (int) dir.get(1) > 254 ) {
             return "B";
         }
-        if ((int) dir.get(0) < 256 && (int) dir.get(1) < 256 && (int) dir.get(2) < 256 && (int) dir.get(3) < 256) {
-            return "C";
+        if ((int) dir.get(0) > 254) {
+            return "A";
         }
         return "Invalida";
     }

@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vlsm;
 
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Carlos
- */
 public class Inter extends javax.swing.JFrame {
 
     VLSM calcu;
@@ -36,6 +30,8 @@ public class Inter extends javax.swing.JFrame {
         BtnAddNet = new javax.swing.JButton();
         BtnRemNet = new javax.swing.JButton();
         BtnCalcVLSM = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TblRedes = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,7 +98,27 @@ public class Inter extends javax.swing.JFrame {
 
         BtnCalcVLSM.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         BtnCalcVLSM.setText("Aplicar VLSM");
+        BtnCalcVLSM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCalcVLSMActionPerformed(evt);
+            }
+        });
         jPanel1.add(BtnCalcVLSM, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, -1, -1));
+
+        TblRedes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(TblRedes);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 230, 790, 190));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vlsm/dark_material_design_wallpaper__3_in_4k_by_tgs266-d9j9h5i-1024x576.jpg"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 490));
@@ -122,18 +138,19 @@ public class Inter extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnIpMaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIpMaskActionPerformed
-        // TODO add your handling code here:
-        if (calcu.verificarMascara(TxtFldMascara.getText()).equals("Mascara Invalida")) {
+        String txtIP = calcu.calcularTipo(TxtFldIPInicial.getText());
+        String txtMas = calcu.verificarMascara(TxtFldMascara.getText());
+        if (txtMas.equals("Mascara Invalida")) {
             JOptionPane.showMessageDialog(this, "La mascara ingresada no es valida");
         }
-        if (calcu.calcularTipo(TxtFldIPInicial.getText()).equals("Invalida")) {
+        if (txtIP.equals("Invalida")) {
             JOptionPane.showMessageDialog(this, "La IP ingresada no es valida");
         }
-        System.out.println(calcu.calcularTipo(TxtFldIPInicial.getText()));
-        System.out.println(calcu.verificarMascara(TxtFldMascara.getText()));
-        String txtIP=calcu.calcularTipo(TxtFldIPInicial.getText());
-        String txtMas=calcu.verificarMascara(TxtFldMascara.getText());
-        if (!txtIP.equals(txtMas)) {
+        if (txtIP.equals("C") && !(txtIP.equals(txtMas))) {
+            JOptionPane.showMessageDialog(this, "La mascara ingresada no corresponde al tipo de IP ingresada");
+        } else if (txtIP.equals("B") && !(((txtIP.equals(txtMas)) || (((txtIP.equals("B") && txtMas.equals("C"))))))) {
+            JOptionPane.showMessageDialog(this, "La mascara ingresada no corresponde al tipo de IP ingresada");
+        } else if (txtIP.equals("A") && !(((txtIP.equals("A") && txtMas.equals("C")) || (((txtIP.equals("A") && txtMas.equals("B")))) || (txtIP.equals(txtMas))))) {
             JOptionPane.showMessageDialog(this, "La mascara ingresada no corresponde al tipo de IP ingresada");
         } else {
             TxtFldIPInicial.setEditable(false);
@@ -147,37 +164,71 @@ public class Inter extends javax.swing.JFrame {
 
     private void BtnAddNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddNetActionPerformed
         // TODO add your handling code here:
-        calcu.redes.add(new Red(Integer.parseInt(TxtFldHosts.getText()),TxtFldNombreRed.getText()));
+        calcu.redes.add(new Red(Integer.parseInt(TxtFldHosts.getText()), TxtFldNombreRed.getText()));
+        DefaultTableModel dtm = new DefaultTableModel();
+        Vector identifier = new Vector();
+        identifier.addElement("Nombre Red");
+        identifier.addElement("Cantidad de Host");
+        identifier.addElement("Direccion IP");
+        dtm.setColumnIdentifiers(identifier);
+        for (Red red : calcu.redes) {
+            Vector fila = new Vector();
+            fila.addElement(red.getNombre());
+            fila.addElement(red.getHost());
+            fila.addElement(red.getRed() + " /" + red.getMascara());
+            dtm.addRow(fila);
+        }
+        TblRedes.setModel(dtm);
+        TxtFldNombreRed.setText("");
+        TxtFldHosts.setText("");
     }//GEN-LAST:event_BtnAddNetActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void BtnCalcVLSMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalcVLSMActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Red> x=calcu.Calcular(calcu.convertidorDecimalBinario(TxtFldIPInicial.getText()),calcu.convertidorDecimalBinario( TxtFldMascara.getText()), calcu.redes);
+        DefaultTableModel dtm = new DefaultTableModel();
+        Vector identifier = new Vector();
+        identifier.addElement("Nombre Red");
+        identifier.addElement("Cantidad de Host");
+        identifier.addElement("Direccion IP");
+        dtm.setColumnIdentifiers(identifier);
+        for (Red red : x) {
+            Vector fila = new Vector();
+            fila.addElement(red.getNombre());
+            fila.addElement(red.getHost());
+            fila.addElement(red.getRed() + " /" + red.getMascara());
+            dtm.addRow(fila);
+        }
+        TblRedes.setModel(dtm);
+        TxtFldIPInicial.setEditable(true);
+        TxtFldMascara.setEditable(true);
+    }//GEN-LAST:event_BtnCalcVLSMActionPerformed
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inter.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            java.util.logging.Logger.getLogger(Inter.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-        /* Create and display the form */
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Inter.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Inter.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Inter.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Inter().setVisible(true);
@@ -190,6 +241,7 @@ public class Inter extends javax.swing.JFrame {
     private javax.swing.JButton BtnCalcVLSM;
     private javax.swing.JButton BtnIpMask;
     private javax.swing.JButton BtnRemNet;
+    private javax.swing.JTable TblRedes;
     private javax.swing.JTextField TxtFldHosts;
     private javax.swing.JTextField TxtFldIPInicial;
     private javax.swing.JTextField TxtFldMascara;
@@ -201,5 +253,6 @@ public class Inter extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
