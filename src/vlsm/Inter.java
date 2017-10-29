@@ -12,6 +12,11 @@ public class Inter extends javax.swing.JFrame {
     public Inter() {
         initComponents();
         this.calcu = new VLSM();
+        this.TxtFldNombreRed.setEditable(false);
+        this.TxtFldHosts.setEditable(false);
+        this.BtnAddNet.setEnabled(false);
+        this.BtnCalcVLSM.setEnabled(false);
+        this.BtnRemNet.setEnabled(false);
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,20 +151,43 @@ public class Inter extends javax.swing.JFrame {
         if (txtIP.equals("Invalida")) {
             JOptionPane.showMessageDialog(this, "La IP ingresada no es valida");
         }
-        if (txtIP.equals("C") && !(txtIP.equals(txtMas))) {
+        if (txtIP.equals("C") && !(txtMas.equals("C"))) {
             JOptionPane.showMessageDialog(this, "La mascara ingresada no corresponde al tipo de IP ingresada");
-        } else if (txtIP.equals("B") && !(((txtIP.equals(txtMas)) || (((txtIP.equals("B") && txtMas.equals("C"))))))) {
+        } else if (txtIP.equals("B") && !(((txtMas.equals("B")) || txtMas.equals("C")))) {
             JOptionPane.showMessageDialog(this, "La mascara ingresada no corresponde al tipo de IP ingresada");
-        } else if (txtIP.equals("A") && !(((txtIP.equals("A") && txtMas.equals("C")) || (((txtIP.equals("A") && txtMas.equals("B")))) || (txtIP.equals(txtMas))))) {
+        } else if (txtIP.equals("A") && !(((txtMas.equals("C")) || txtMas.equals("B") || txtMas.equals("A")))) {
             JOptionPane.showMessageDialog(this, "La mascara ingresada no corresponde al tipo de IP ingresada");
         } else {
             TxtFldIPInicial.setEditable(false);
             TxtFldMascara.setEditable(false);
+            BtnIpMask.setEnabled(false);
+            TxtFldNombreRed.setEditable(true);
+            TxtFldHosts.setEditable(true);
+            BtnAddNet.setEnabled(true);
         }
     }//GEN-LAST:event_BtnIpMaskActionPerformed
 
     private void BtnRemNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRemNetActionPerformed
         // TODO add your handling code here:
+        if (TblRedes.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una red");
+        } else {
+            calcu.redes.remove(TblRedes.getSelectedRow());
+            DefaultTableModel dtm = new DefaultTableModel();
+            Vector identifier = new Vector();
+            identifier.addElement("Nombre Red");
+            identifier.addElement("Cantidad de Host");
+            identifier.addElement("Direccion IP");
+            dtm.setColumnIdentifiers(identifier);
+            for (Red red : calcu.redes) {
+                Vector fila = new Vector();
+                fila.addElement(red.getNombre());
+                fila.addElement(red.getHost());
+                fila.addElement(red.getRed() + " /" + red.getMascara());
+                dtm.addRow(fila);
+            }
+            TblRedes.setModel(dtm);
+        }
     }//GEN-LAST:event_BtnRemNetActionPerformed
 
     private void BtnAddNetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddNetActionPerformed
@@ -185,7 +213,7 @@ public class Inter extends javax.swing.JFrame {
 
     private void BtnCalcVLSMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalcVLSMActionPerformed
         // TODO add your handling code here:
-        ArrayList<Red> x=calcu.Calcular(calcu.convertidorDecimalBinario(TxtFldIPInicial.getText()),calcu.convertidorDecimalBinario( TxtFldMascara.getText()), calcu.redes);
+        ArrayList<Red> x = calcu.Calcular(calcu.convertidorDecimalBinario(TxtFldIPInicial.getText()), calcu.convertidorDecimalBinario(TxtFldMascara.getText()), calcu.redes);
         DefaultTableModel dtm = new DefaultTableModel();
         Vector identifier = new Vector();
         identifier.addElement("Nombre Red");
@@ -202,6 +230,10 @@ public class Inter extends javax.swing.JFrame {
         TblRedes.setModel(dtm);
         TxtFldIPInicial.setEditable(true);
         TxtFldMascara.setEditable(true);
+        BtnIpMask.setEnabled(true);
+        TxtFldNombreRed.setEditable(false);
+        TxtFldHosts.setEditable(false);
+        BtnAddNet.setEnabled(false);
     }//GEN-LAST:event_BtnCalcVLSMActionPerformed
 
     public static void main(String args[]) {
